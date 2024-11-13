@@ -19,7 +19,7 @@ class _HomeState extends State<Home> {
                     children: [
                       Positioned.fill(
                         child: Image.asset(
-                          'assets/img/ilhadomedo.jpg',
+                          'assets/img/banners/darknight.jpg',
                           fit: BoxFit.cover,
                         ),
                       ),
@@ -148,18 +148,18 @@ class _HomeState extends State<Home> {
                         child: ListView(
                           scrollDirection: Axis.horizontal,
                           children: [
-                            PreviewCard('assets/img/spider.jpg'),
+                            PreviewCard('assets/img/banners/spider.jpg'),
                             GestureDetector(
                               onTap: () {
                                 Navigator.pushNamed(context, '/player');
                               },
-                              child:
-                                  PreviewCard('assets/img/django.png'), //django
+                              child: PreviewCard(
+                                  'assets/img/banners/django.png'), //django
                             ),
-                            PreviewCard('assets/img/bastardos.png'),
-                            PreviewCard('assets/img/joker.jpg'),
-                            PreviewCard('assets/img/titanic.jpg'),
-                            PreviewCard('assets/img/clube.jfif'),
+                            PreviewCard('assets/img/banners/bastardos.png'),
+                            PreviewCard('assets/img/banners/joker.jpg'),
+                            PreviewCard('assets/img/banners/titanic.jpg'),
+                            PreviewCard('assets/img/banners/clube.jfif'),
                           ],
                         ),
                       ),
@@ -186,16 +186,12 @@ class _HomeState extends State<Home> {
             label: 'Pesquisa',
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.playlist_play),
-            label: 'Em Breve',
-          ),
-          BottomNavigationBarItem(
             icon: Icon(Icons.download),
             label: 'Baixados',
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.more_horiz),
-            label: 'Mais',
+            icon: Icon(Icons.person),
+            label: 'Perfil',
           ),
         ],
       ),

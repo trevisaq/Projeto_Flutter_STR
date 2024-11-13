@@ -113,13 +113,6 @@ class _LoginState extends State<Login> {
                                     color: Color.fromARGB(255, 48, 107, 52),
                                     width: 1.3,
                                   )),
-                              // hintText: "Email ou número de telefone",
-                              // hintStyle: TextStyle(
-                              //   fontFamily: 'Antonio',
-                              //   fontSize: 15,
-                              //   fontWeight: FontWeight.normal,
-                              //   color: Color.fromARGB(255, 110, 107, 111),
-                              // ),
                               filled: true,
                               fillColor: Color.fromARGB(255, 41, 47, 54),
                               contentPadding: EdgeInsets.symmetric(
@@ -168,13 +161,6 @@ class _LoginState extends State<Login> {
                                     color: Color.fromARGB(255, 48, 107, 52),
                                     width: 1.3,
                                   )),
-                              // hintText: "Senha",
-                              // hintStyle: TextStyle(
-                              //   fontFamily: 'Antonio',
-                              //   fontSize: 20,
-                              //   fontWeight: FontWeight.normal,
-                              //   color: Color(0xFFAEA0A0),
-                              // ),
                               suffixIcon: GestureDetector(
                                 child: Icon(
                                   _showPassword
@@ -251,7 +237,7 @@ class _LoginState extends State<Login> {
                                 children: [
                                   InkWell(
                                     onTap: () {
-                                      Navigator.pushNamed(context, '/player');
+                                      Navigator.pushNamed(context, '/cadastro');
                                     },
                                     child: Text(
                                       'Esqueceu a senha?',
@@ -306,7 +292,7 @@ class _LoginState extends State<Login> {
     if (_formKey.currentState!.validate()) {
       _formKey.currentState!.save();
       if (_isValidEmail(_email) && _isValidPassword(_password)) {
-        Navigator.pushNamed(context, '/home');
+        Navigator.pushNamed(context, '/perfis');
       } else {
         setState(() {
           _errorMessage = "Email ou senha inválidos";
