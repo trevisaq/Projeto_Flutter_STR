@@ -193,7 +193,7 @@ class _SplashState extends State<Splash> with TickerProviderStateMixin {
                                     ClipRRect(
                                       borderRadius: BorderRadius.circular(20),
                                       child: Image.asset(
-                                        'assets/img/ICONECOLORIDO.png',
+                                        'assets/img/icons/ICONECOLORIDO.png',
                                         width: 100,
                                         height: 100,
                                       ),

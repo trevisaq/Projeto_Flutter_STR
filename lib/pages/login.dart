@@ -47,7 +47,7 @@ class _LoginState extends State<Login> {
                 ),
                 SizedBox(width: 8), // Espaçamento entre ícone e texto
                 Image.asset(
-                  'assets/img/logo.png',
+                  'assets/img/icons/logo.png',
                   height: 50, // Tamanho menor para o ícone
                   width: 50, // Tamanho menor para o ícone
                 ),

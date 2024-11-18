@@ -11,7 +11,7 @@ class Perfis extends StatelessWidget { // Define um widget de tela chamada 'Perf
         backgroundColor: Color.fromARGB(255, 19, 19, 19), // Define a cor de fundo do AppBar.
         flexibleSpace: Center( // Permite posicionar widgets no centro da barra.
           child: Image.asset( // Adiciona uma imagem centralizada na AppBar.
-            'assets/img/comp5.png', // Caminho da imagem nos assets.
+            'assets/img/components/comp5.png', // Caminho da imagem nos assets.
             width: 190, // Largura da imagem.
           ),
         ),

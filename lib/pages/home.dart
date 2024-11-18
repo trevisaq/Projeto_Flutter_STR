@@ -58,7 +58,7 @@ class _HomeState extends State<Home> {
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: [
                                 Image.asset(
-                                  'assets/img/logo.png',
+                                  'assets/img/icons/logo.png',
                                   width: 40,
                                   height: 40,
                                 ),
@@ -151,7 +151,7 @@ class _HomeState extends State<Home> {
                             PreviewCard('assets/img/banners/spider.jpg'),
                             GestureDetector(
                               onTap: () {
-                                Navigator.pushNamed(context, '/player');
+                                Navigator.pushNamed(context, '/filme');
                               },
                               child: PreviewCard(
                                   'assets/img/banners/django.png'), //django
@@ -207,10 +207,10 @@ class PreviewCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: EdgeInsets.symmetric(horizontal: 8),
+      margin: EdgeInsets.symmetric(horizontal: 5),
       width: 100,
       decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(10),
+        borderRadius: BorderRadius.circular(7),
         image: DecorationImage(
           image: AssetImage(imageUrl),
           fit: BoxFit.cover,
