@@ -8,11 +8,11 @@ Clone este repositório em sua máquina local:
 
 *Navegue até o diretório do projeto:*
 
-[cd eco-films]
+- cd eco-films
 
-Instale as dependências do Flutter:
+*Instale as dependências do Flutter:*
 
-flutter pub get
+- flutter pub get
 
 2. Configuração do Firebase
 
