@@ -37,6 +37,4 @@ Conecte um dispositivo ou inicie um emulador como o android studio.
 
 Execute o comando abaixo para iniciar o app:
 
-flutter run
-
-Recursos Adi
+- flutter run
