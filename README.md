@@ -26,7 +26,7 @@ Clone este repositório em sua máquina local:
 
 - Configure o Firebase Authentication para permitir autenticação por e-mail e senha.
 
-- Adicione o arquivo google-services.json (Android) ou GoogleService-Info.plist (iOS) ao diretório correspondente do projeto Flutter.
+- Adicione o arquivo google-services.json (Android) ao diretório correspondente do projeto Flutter.
 
 - Certifique-se de que o Firebase está devidamente configurado no arquivo pubspec.yaml e nas plataformas Android e iOS seguindo a documentação oficial.
 
