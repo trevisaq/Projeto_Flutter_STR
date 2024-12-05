@@ -1,17 +1,72 @@
+import 'package:ecofilms/pages/home.dart';
+import 'package:ecofilms/pages/perfis.dart';
 import 'package:flutter/material.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:google_sign_in/google_sign_in.dart';
+import 'package:ecofilms/pages/cadastro.dart';
 
 class Login extends StatefulWidget {
   @override
-  State<Login> createState() => _LoginState();
+  _LoginState createState() => _LoginState();
 }
 
 class _LoginState extends State<Login> {
-  final _formKey = GlobalKey<FormState>();
-  bool _showPassword = false;
-  String? _errorMessage;
+  final FirebaseAuth _auth = FirebaseAuth.instance;
+  final TextEditingController _emailController = TextEditingController();
+  final TextEditingController _passwordController = TextEditingController();
 
-  String? _email;
-  String? _password;
+  Future<void> _login() async {
+    try {
+      await _auth.signInWithEmailAndPassword(
+        email: _emailController.text.trim(),
+        password: _passwordController.text.trim(),
+      );
+
+      Navigator.pushReplacement(
+        context,
+        MaterialPageRoute(builder: (context) => Perfis()),
+      );
+    } catch (e) {
+      _showSnackBar('Erro no login: ${e.toString()}', Colors.red);
+    }
+  }
+
+  Future<void> _signInWithGoogle() async {
+    try {
+      final GoogleSignIn googleSignIn = GoogleSignIn();
+      final GoogleSignInAccount? googleUser = await googleSignIn.signIn();
+
+      if (googleUser == null) {
+        _showSnackBar('Login cancelado pelo usuário', Colors.orange);
+        return;
+      }
+
+      final GoogleSignInAuthentication googleAuth = await googleUser.authentication;
+
+      final credential = GoogleAuthProvider.credential(
+        accessToken: googleAuth.accessToken,
+        idToken: googleAuth.idToken,
+      );
+
+      await _auth.signInWithCredential(credential);
+
+      Navigator.pushReplacement(
+        context,
+        MaterialPageRoute(builder: (context) => Perfis()),
+      );
+    } catch (e) {
+      _showSnackBar('Erro ao fazer login com Google: ${e.toString()}', Colors.red);
+    }
+  }
+
+  void _showSnackBar(String message, Color color) {
+    final snackBar = SnackBar(
+      content: Text(message),
+      backgroundColor: color,
+      duration: Duration(seconds: 2),
+    );
+    ScaffoldMessenger.of(context).showSnackBar(snackBar);
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -30,282 +85,151 @@ class _LoginState extends State<Login> {
               ),
             ),
           ),
-          // Novo Positioned para o ícone e texto no canto superior esquerdo
           Positioned(
-            top: 20, // Ajuste para mover para o topo
-            left: 20, // Ajuste para mover para a esquerda
+            top: 20,
+            left: 20,
             child: Row(
               children: [
                 Text(
                   "ECOFILMS",
                   style: TextStyle(
                     fontFamily: 'Antonio',
-                    fontSize: 24, // Tamanho menor para o texto
+                    fontSize: 24,
                     color: Colors.white,
                     fontWeight: FontWeight.normal,
                   ),
                 ),
-                SizedBox(width: 8), // Espaçamento entre ícone e texto
+                SizedBox(width: 8),
                 Image.asset(
                   'assets/img/icons/logo.png',
-                  height: 50, // Tamanho menor para o ícone
-                  width: 50, // Tamanho menor para o ícone
+                  height: 50,
+                  width: 50,
                 ),
               ],
             ),
           ),
           Center(
             child: SingleChildScrollView(
-              child: Column(
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  Text(
-                    "Faça seu Login",
-                    style: TextStyle(
-                      fontFamily: 'Antonio',
-                      fontSize: 42,
-                      color: Colors.white,
-                    ),
-                  ),
-                  Text(
-                    "entre na sua conta para começar a aproveitar nossos serviços",
-                    style: TextStyle(
-                      fontFamily: 'Antonio',
-                      fontSize: 16,
-                      color: Colors.grey,
-                    ),
-                  ),
-                  SizedBox(height: 20),
-                  Container(
-                    padding: const EdgeInsets.all(20),
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(25),
-                    ),
-                    child: Form(
-                      key: _formKey,
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        mainAxisSize: MainAxisSize.min,
-                        children: [
-                          Text(
-                            "Insira seu e-mail",
-                            style: TextStyle(
-                              fontFamily: 'Antonio',
-                              fontSize: 18,
-                              color: Colors.white,
-                              fontWeight: FontWeight.normal,
-                            ),
-                          ),
-                          SizedBox(height: 8),
-                          TextFormField(
-                            style: TextStyle(
-                                color:
-                                    Colors.grey), // Define a cor do texto aqui
-                            decoration: InputDecoration(
-                              focusedBorder: OutlineInputBorder(
-                                  borderRadius: BorderRadius.circular(9.0),
-                                  borderSide: BorderSide(
-                                      color: Color.fromARGB(255, 48, 107, 52),
-                                      width: 1.8)),
-                              enabledBorder: OutlineInputBorder(
-                                  borderRadius: BorderRadius.circular(9.0),
-                                  borderSide: BorderSide(
-                                    color: Color.fromARGB(255, 48, 107, 52),
-                                    width: 1.3,
-                                  )),
-                              filled: true,
-                              fillColor: Color.fromARGB(255, 41, 47, 54),
-                              contentPadding: EdgeInsets.symmetric(
-                                  vertical: 10, horizontal: 10),
-                              border: OutlineInputBorder(
-                                borderRadius:
-                                    BorderRadius.all(Radius.circular(10)),
-                                borderSide: BorderSide.none,
-                              ),
-                            ),
-                            validator: (String? value) {
-                              if (value == null || value.isEmpty) {
-                                return "Por favor, insira um email";
-                              }
-                              if (!RegExp(r'^[^@]+@[^@]+\.[^@]+')
-                                  .hasMatch(value)) {
-                                return "Insira um email válido";
-                              }
-                              return null;
-                            },
-                            onSaved: (value) => _email = value,
-                          ),
-                          SizedBox(height: 12),
-                          Text(
-                            "Insira sua senha",
-                            style: TextStyle(
-                              fontFamily: 'Antonio',
-                              fontSize: 18,
-                              color: Colors.white,
-                              fontWeight: FontWeight.normal,
-                            ),
-                          ),
-                          SizedBox(height: 12),
-                          TextFormField(
-                            style: TextStyle(color: Colors.grey),
-                            obscureText: !_showPassword,
-                            decoration: InputDecoration(
-                              focusedBorder: OutlineInputBorder(
-                                  borderRadius: BorderRadius.circular(9.0),
-                                  borderSide: BorderSide(
-                                      color: Color.fromARGB(255, 48, 107, 52),
-                                      width: 1.8)),
-                              enabledBorder: OutlineInputBorder(
-                                  borderRadius: BorderRadius.circular(9.0),
-                                  borderSide: BorderSide(
-                                    color: Color.fromARGB(255, 48, 107, 52),
-                                    width: 1.3,
-                                  )),
-                              suffixIcon: GestureDetector(
-                                child: Icon(
-                                  _showPassword
-                                      ? Icons.visibility
-                                      : Icons.visibility_off,
-                                ),
-                                onTap: () {
-                                  setState(() {
-                                    _showPassword = !_showPassword;
-                                  });
-                                },
-                              ),
-                              filled: true,
-                              fillColor: Color.fromARGB(255, 41, 47, 54),
-                              contentPadding: EdgeInsets.symmetric(
-                                  vertical: 10, horizontal: 10),
-                              border: OutlineInputBorder(
-                                borderRadius:
-                                    BorderRadius.all(Radius.circular(10)),
-                                borderSide: BorderSide.none,
-                              ),
-                            ),
-                            validator: (String? value) {
-                              if (value == null || value.isEmpty) {
-                                return "Por favor, insira sua senha";
-                              }
-                              if (value.length < 6) {
-                                return "A senha deve ter pelo menos 6 caracteres";
-                              }
-                              return null;
-                            },
-                            onSaved: (value) => _password = value,
-                          ),
-                          SizedBox(height: 20),
-                          Center(
-                            child: ElevatedButton(
-                              onPressed: () {
-                                buttonEnterClick();
-                              },
-                              child: Text(
-                                "Login",
-                                style: TextStyle(
-                                  fontFamily: 'Antonio',
-                                  fontSize: 17,
-                                  fontWeight: FontWeight.bold,
-                                ),
-                              ),
-                              style: ElevatedButton.styleFrom(
-                                fixedSize: Size(440, 50),
-                                backgroundColor: Color(0xFF65DC65),
-                                foregroundColor: Colors.white,
-                                shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(7),
-                                ),
-                              ),
-                            ),
-                          ),
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.start,
-                            children: [
-                              if (_errorMessage != null)
-                                Expanded(
-                                  child: Text(
-                                    _errorMessage!,
-                                    style: TextStyle(color: Colors.red),
-                                    maxLines: 1,
-                                    overflow: TextOverflow.ellipsis,
-                                  ),
-                                ),
-                              SizedBox(height: 40),
-                              Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
-                                children: [
-                                  InkWell(
-                                    onTap: () {
-                                      Navigator.pushNamed(context, '/cadastro');
-                                    },
-                                    child: Text(
-                                      'Esqueceu a senha?',
-                                      style: TextStyle(
-                                        fontFamily: 'Antonio',
-                                        fontWeight: FontWeight.normal,
-                                        fontSize: 14,
-                                        color: const Color.fromARGB(
-                                            255, 255, 255, 255),
-                                      ),
-                                    ),
-                                  ),
-                                  SizedBox(width: 173),
-                                  InkWell(
-                                    onTap: () {
-                                      Navigator.pushNamed(
-                                          context, ('/cadastro'));
-                                    },
-                                    child: Text(
-                                      "Cadastrar-se",
-                                      style: TextStyle(
-                                        fontFamily: 'Antonio',
-                                        fontWeight: FontWeight.bold,
-                                        fontSize: 14,
-                                        color: const Color.fromARGB(
-                                            255, 255, 255, 255),
-                                      ),
-                                    ),
-                                  ),
-                                ],
-                              )
-                            ],
-                          ),
-                        ],
+              child: Padding(
+                padding: const EdgeInsets.all(16.0),
+                child: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    Text(
+                      'Faça seu login!',
+                      style: TextStyle(
+                        fontSize: 32,
+                        fontWeight: FontWeight.bold,
+                        fontFamily: 'Antonio',
+                        color: Colors.white,
                       ),
                     ),
-                  ),
-                ],
+                    SizedBox(height: 40),
+                    TextField(
+                      controller: _emailController,
+                      style: TextStyle(color: Colors.grey),
+                      decoration: InputDecoration(
+                        labelText: "Email",
+                        labelStyle: TextStyle(color: Color.fromARGB(205, 202, 202, 202)),
+                        focusedBorder: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(9.0),
+                          borderSide: BorderSide(
+                            color: Color.fromARGB(255, 48, 107, 52),
+                            width: 1.8,
+                          ),
+                        ),
+                        enabledBorder: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(10.0),
+                          borderSide: BorderSide(
+                            color: Color.fromARGB(255, 48, 107, 52),
+                            width: 1.3,
+                          ),
+                        ),
+                        filled: true,
+                        fillColor: Color.fromARGB(255, 41, 47, 54),
+                      ),
+                      keyboardType: TextInputType.emailAddress,
+                    ),
+                    SizedBox(height: 20),
+                    TextField(
+                      controller: _passwordController,
+                      style: TextStyle(color: Colors.grey),
+                      decoration: InputDecoration(
+                        labelText: "Senha",
+                        labelStyle: TextStyle(color: Color.fromARGB(205, 202, 202, 202)),
+                        focusedBorder: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(9.0),
+                          borderSide: BorderSide(
+                            color: Color.fromARGB(255, 48, 107, 52),
+                            width: 1.8,
+                          ),
+                        ),
+                        enabledBorder: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(10.0),
+                          borderSide: BorderSide(
+                            color: Color.fromARGB(255, 48, 107, 52),
+                            width: 1.3,
+                          ),
+                        ),
+                        filled: true,
+                        fillColor: Color.fromARGB(255, 41, 47, 54),
+                      ),
+                      obscureText: true,
+                    ),
+                    SizedBox(height: 40),
+                    InkWell(
+                      onTap: _login,
+                      child: Image.asset(
+                        'assets/img/components/login.button.png',
+                        height: 50,
+                        width: double.infinity,
+                        fit: BoxFit.contain,
+                      ),
+                    ),
+                    SizedBox(height: 20),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        TextButton(
+                          onPressed: () {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(builder: (context) => CadastroScreen()),
+                            );
+                          },
+                          child: Text(
+                            'Não tem uma conta?',
+                            style: TextStyle(color: Colors.white),
+                          ),
+                        ),
+                        Column(
+                          children: [
+                            InkWell(
+                              onTap: _signInWithGoogle,
+                              child: Image.asset(
+                                'assets/img/icons/google.button.png',
+                                width: 35,
+                              ),
+                            ),
+                            Text(
+                              'Conta Google',
+                              style: TextStyle(
+                                fontFamily: 'Antonio',
+                                color: Colors.grey,
+                                fontSize: 15,
+                              ),
+                            ),
+                          ],
+                        ),
+                      ],
+                    ),
+                  ],
+                ),
               ),
             ),
           ),
         ],
       ),
     );
-  }
-
-  void buttonEnterClick() {
-    setState(() {
-      _errorMessage = null;
-    });
-
-    if (_formKey.currentState!.validate()) {
-      _formKey.currentState!.save();
-      if (_isValidEmail(_email) && _isValidPassword(_password)) {
-        Navigator.pushNamed(context, '/perfis');
-      } else {
-        setState(() {
-          _errorMessage = "Email ou senha inválidos";
-        });
-      }
-    }
-  }
-
-  bool _isValidEmail(String? email) {
-    return email != null && RegExp(r'^[^@]+@[^@]+\.[^@]+').hasMatch(email);
-  }
-
-  bool _isValidPassword(String? password) {
-    return password != null && password.length >= 6;
   }
 }

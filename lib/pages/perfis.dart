@@ -34,7 +34,7 @@ class Perfis extends StatelessWidget { // Define um widget de tela chamada 'Perf
               style: TextStyle( // Define o estilo do texto.
                 color: Color.fromARGB(80, 255, 255, 255), // Cor do texto com baixa opacidade.
                 fontFamily: 'Antonio', // Fonte do texto.
-                fontSize: 13, // Tamanho da fonte.
+                fontSize: 15, // Tamanho da fonte.
               ),
             ),
             Container( // Container para o GridView.

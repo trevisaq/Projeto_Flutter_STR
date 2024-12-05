@@ -1,0 +1,19 @@
+[
+    {
+      "id": 1,
+      "title": "Django Livre",
+      "mainImage": "assets/img/banners/django.png",
+      "description": "No sul dos Estados Unidos, o ex-escravo Django...",
+      "duration": "2h 44min",
+      "similarTitles": ["assets/img/banners/bastardos.png", "assets/img/banners/spider.jpg"]
+    },
+    {
+      "id": 2,
+      "title": "Clube da Luta",
+      "mainImage": "assets/img/banners/clube.jfif",
+      "description": "A história de um grupo clandestino...",
+      "duration": "2h 19min",
+      "similarTitles": ["assets/img/banners/joker.jpg", "assets/img/banners/titanic.jpg"]
+    }
+  ]
+  

@@ -7,15 +7,20 @@ class YoutubeVideoPage extends StatefulWidget {
 }
 
 class _YoutubeVideoPageState extends State<YoutubeVideoPage> {
-  final String videoId = 'hglyRJXCNCM';
   late YoutubePlayerController _controller;
 
   @override
-  void initState() {
-    super.initState();
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+
+    // Recupera os argumentos passados via Navigator
+    final args = ModalRoute.of(context)!.settings.arguments as Map<String, dynamic>;
+    final videoId = args['videoId']; // Obtém o ID do vídeo
+
+    // Inicializa o controller do YouTube Player
     _controller = YoutubePlayerController(
       initialVideoId: videoId,
-      flags: YoutubePlayerFlags(
+      flags: const YoutubePlayerFlags(
         autoPlay: true,
         mute: false,
       ),
@@ -45,7 +50,7 @@ class _YoutubeVideoPageState extends State<YoutubeVideoPage> {
             builder: (context, player) {
               return SizedBox.expand(
                 child: FittedBox(
-                  fit: BoxFit.cover, // Preenche completamente
+                  fit: BoxFit.cover,
                   child: SizedBox(
                     width: MediaQuery.of(context).size.width,
                     height: MediaQuery.of(context).size.height,

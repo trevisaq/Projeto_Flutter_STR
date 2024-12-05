@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "1002890850574",
+    "project_id": "ecofilmsofc",
+    "storage_bucket": "ecofilmsofc.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1002890850574:android:f05f8309905a35cf25e75f",
+        "android_client_info": {
+          "package_name": "com.example.ecofilms"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDi9mlYE-r2mUKUhMsBUoC6c2vXf2oa3i4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
