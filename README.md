@@ -1,16 +1,41 @@
-# ecofilms
+# ECOFILMS 🌿
 
-A new Flutter project.
 
-## Getting Started
+Este é um projeto simples de um app de streaming desenvolvido em Flutter, pensado para a instituição SENAI Shunji Nishimura (12/24). O aplicativo utiliza autenticação por e-mail e senha integrada ao Firebase na página inicial (Login).
 
-This project is a starting point for a Flutter application.
+---
 
-A few resources to get you started if this is your first Flutter project:
+**1. Instalação**
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
+Clone este repositório em sua máquina local:
+[https://github.com/trevisaq/Projeto_Flutter_STR.git]
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+*Navegue até o diretório do projeto:*
+
+- cd eco-films
+
+*Instale as dependências do Flutter:*
+
+- flutter pub get
+
+---
+
+**2. Configuração do Firebase**
+
+- Acesse o Firebase Console e crie um novo projeto.
+
+- Configure o Firebase Authentication para permitir autenticação por e-mail e senha.
+
+- Adicione o arquivo google-services.json (Android) ao diretório correspondente do projeto Flutter.
+
+- Certifique-se de que o Firebase está devidamente configurado no arquivo pubspec.yaml e nas plataformas Android e iOS seguindo a documentação oficial.
+
+---
+
+**3. Executando o App**
+
+Conecte um dispositivo ou inicie um emulador como o android studio.
+
+Execute o comando abaixo para iniciar o app:
+
+- flutter run
