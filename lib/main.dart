@@ -1,4 +1,3 @@
-import 'package:ecofilms/pages/botaoteste.dart';
 import 'package:ecofilms/pages/perfis.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -29,7 +28,7 @@ class MyApp extends StatelessWidget {
       ),
       initialRoute: '/', // Mudar para a página de splash
       routes: {
-        '/': (context) => Login(),
+        '/': (context) => Home(),
         '/cadastro': (context) => CadastroScreen(),
         'perfis': (context) => Perfis(),
         '/home': (context) => Home(),

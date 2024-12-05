@@ -137,7 +137,27 @@ class TelaFilme extends StatelessWidget {
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(8),
                       )),
-                  onPressed: () {},
+                  onPressed: () {
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      SnackBar(
+                        content: Row(
+                          children: [
+                            Icon(
+                              Icons.download,
+                              color: Color.fromARGB(255, 101, 220, 101),
+                            ),
+                            SizedBox(width: 5),
+                            Text(
+                              'Filme Baixado !!',
+                              style: TextStyle(
+                                  color: Color.fromARGB(255, 101, 220, 101)),
+                            ),
+                          ],
+                        ),
+                        duration: Duration(seconds: 2),
+                      ),
+                    );
+                  },
                   child: Row(
                     mainAxisSize: MainAxisSize.min,
                     children: [
