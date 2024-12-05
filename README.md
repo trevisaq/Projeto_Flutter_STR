@@ -1,4 +1,4 @@
-# ECOFILMS ![Planta](https://cdn-icons-png.flaticon.com/512/5904/5904407.png)
+# ECOFILMS 🌿
 
 
 Este é um projeto simples de um app de streaming desenvolvido em Flutter, pensado para a instituição SENAI Shunji Nishimura (12/24). O aplicativo utiliza autenticação por e-mail e senha integrada ao Firebase na página inicial (Login).
