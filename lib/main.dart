@@ -4,6 +4,7 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:ecofilms/pages/cadastro.dart';
 import 'package:ecofilms/pages/login.dart';
 import 'package:ecofilms/pages/home.dart';
+import 'package:ecofilms/pages/splash.dart';
 import 'package:ecofilms/pages/perfis.dart';
 import 'package:ecofilms/pages/player.dart';
 import 'package:ecofilms/pages/telafilme.dart';
@@ -26,9 +27,10 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         useMaterial3: true,
       ),
-      initialRoute: '/', // Mudar para a página de splash
+      initialRoute: '/',
       routes: {
-        '/': (context) => Home(),
+        '/': (context) => Splash(),
+        '/login': (context) => Login(),
         '/cadastro': (context) => CadastroScreen(),
         'perfis': (context) => Perfis(),
         '/home': (context) => Home(),
